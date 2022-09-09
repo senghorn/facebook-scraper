@@ -1,9 +1,10 @@
+import imp
 import time
 import json
  
 from lib2to3.pgen2.driver import Driver
 from selenium import webdriver
-
+from webdriver_manager.chrome import ChromeDriverManager
 
 f = open('data.json')
 data = json.load(f)
@@ -12,7 +13,7 @@ email = data["email"]
 message = data["message"]
 f.close()
 
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(ChromeDriverManager().install())
 
 driver.get("https://facebook.com")
 
@@ -27,4 +28,3 @@ driver.find_element("xpath",'/html/body/div[1]/div/div[1]/div/div[3]/div/div/div
 time.sleep(2)
 driver.find_element("xpath",'/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/form/div/div[1]/div/div/div/div[2]/div[1]/div[1]/div[1]/div/div/div/p').send_keys(message)
 driver.close()
-    
